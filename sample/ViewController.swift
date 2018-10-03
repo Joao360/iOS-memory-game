@@ -10,15 +10,15 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBAction func onMapClick(_ sender: UIButton) {
+    @IBAction private func onMapClick(_ sender: UIButton) {
         performSegue(withIdentifier: "mapSegue", sender: self)
     }
     
-    lazy var game = Concentration(numberOfPairsOfCards: cardButtons.count / 2)
+    private lazy var game = Concentration(numberOfPairsOfCards: cardButtons.count / 2)
     
-    @IBOutlet weak var flipLabel: UILabel!
+    @IBOutlet private weak var flipLabel: UILabel!
     
-    var flips = 0 {
+    private var flips = 0 {
         didSet {
             flipLabel.text = "Flips: \(flips)"
         }
@@ -29,16 +29,16 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    @IBOutlet var cardButtons: [UIButton]!
+    @IBOutlet private var cardButtons: [UIButton]!
     
-    @IBAction func onNewGame() {
+    @IBAction private func onNewGame() {
         game = Concentration(numberOfPairsOfCards: cardButtons.count / 2)
         flips = 0
         identifiers = ViewController.defaultIdentifiers
         updateViewOnModel()
     }
     
-    @IBAction func onPressButton(_ sender: UIButton) {
+    @IBAction private func onPressButton(_ sender: UIButton) {
         flips += 1
         if let cardNumber = cardButtons.firstIndex(of: sender) {
             game.chooseCard(at: cardNumber)
@@ -48,30 +48,31 @@ class ViewController: UIViewController {
         }
     }
     
-    func updateViewOnModel() {
+    private func updateViewOnModel() {
         for index in cardButtons.indices {
             let button = cardButtons[index]
             let card = game.cards[index]
             if card.isFaceUp {
-                button.backgroundColor = UIColor.white
-                button.setTitle(identifier(for: card), for: UIControl.State.normal)
+                button.backgroundColor = .white
+                button.setTitle(identifier(for: card), for: .normal)
             } else {
-                button.backgroundColor = card.isMatched ? UIColor.clear : UIColor.orange
-                button.setTitle("", for: UIControl.State.normal)
+                button.backgroundColor = card.isMatched ? .clear : .orange
+                button.setTitle("", for: .normal)
             }
         }
     }
     
-    static let defaultIdentifiers = ["A", "B", "C", "D", "E", "F"]
-    var identifiers = defaultIdentifiers
-    var cardIdentifiers = [Int:String]()
+    private static let defaultIdentifiers = "ABCDEF"
+    private var identifiers = defaultIdentifiers
+    private var cardIdentifiers = [Card:String]()
     
-    func identifier(for card: Card) -> String {
-        if cardIdentifiers[card.identifier] == nil, identifiers.count > 0 {
-            cardIdentifiers[card.identifier] = identifiers.remove(at: Int.random(in: 0..<identifiers.count))
+    private func identifier(for card: Card) -> String {
+        if cardIdentifiers[card] == nil, identifiers.count > 0 {
+            let stringIndex = identifiers.index(identifiers.startIndex, offsetBy: Int.random(in: 0..<identifiers.count))
+            cardIdentifiers[card] = String(identifiers.remove(at: stringIndex))
         }
         
-        return cardIdentifiers[card.identifier] ?? "?"
+        return cardIdentifiers[card] ?? "?"
     }
 
 }

@@ -8,31 +8,45 @@
 
 import Foundation
 
-class Concentration {
-    var cards = [Card]()
+struct Concentration {
+    private(set) var cards = [Card]()
     
-    var facedUpCardIndex: Int?
+    private var indexOfTheOneAndOnlyFaceUpCard: Int? {
+        get {
+            var foundIndex: Int?
+            for index in cards.indices {
+                if cards[index].isFaceUp {
+                    foundIndex = index
+                } else {
+                    return nil
+                }
+            }
+            return foundIndex
+        }
+        set {
+            for index in cards.indices {
+                cards[index].isFaceUp = (index == newValue)
+            }
+        }
+    }
     
-    func chooseCard(at index: Int){
+    mutating func chooseCard(at index: Int){
+        assert(cards.indices.contains(index), "Concentration.chooseCard(at: \(index): chosen index not in the cards")
         if !cards[index].isMatched {
-            if let lastIndex = facedUpCardIndex, lastIndex != index {
-                if cards[lastIndex].identifier == cards[index].identifier {
+            if let lastIndex = indexOfTheOneAndOnlyFaceUpCard, lastIndex != index {
+                if cards[lastIndex] == cards[index] {
                     cards[lastIndex].isMatched = true
                     cards[index].isMatched = true
                 }
                 cards[index].isFaceUp = true
-                facedUpCardIndex = nil
             } else {
-                for newIndex in cards.indices {
-                    cards[newIndex].isFaceUp = false
-                }
-                cards[index].isFaceUp = true
-                facedUpCardIndex = index
+                indexOfTheOneAndOnlyFaceUpCard = index
             }
         }
     }
     
     init(numberOfPairsOfCards: Int) {
+        assert(numberOfPairsOfCards > 0, "Concentration.init(\(numberOfPairsOfCards): numberOfPairsOfCards should be greater than 0")
         for _ in 0..<numberOfPairsOfCards {
             let card = Card()
             cards += [card, card]
