@@ -206,7 +206,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="nearbySingleCell" id="HwM-2d-TiO">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="nearbySingleCell" id="HwM-2d-TiO" customClass="NearbySingleCell" customModule="sample" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="5" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -224,6 +224,9 @@
                                             <constraint firstItem="yI1-US-XuN" firstAttribute="leading" secondItem="HwM-2d-TiO" secondAttribute="leading" id="dOg-zg-2h0"/>
                                             <constraint firstAttribute="trailing" secondItem="yI1-US-XuN" secondAttribute="trailing" id="s4I-DU-PwF"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="image" destination="yI1-US-XuN" id="ATS-cu-fKU"/>
+                                        </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="nearbyMultipleCell" id="GFb-zL-432" customClass="NearbyMultipleCell" customModule="sample" customModuleProvider="target">
                                         <rect key="frame" x="60" y="5" width="50" height="50"/>

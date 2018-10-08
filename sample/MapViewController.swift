@@ -9,6 +9,7 @@
 import UIKit
 import Contacts
 import MapKit
+import Kingfisher
 
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
@@ -16,9 +17,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     private let regionLatitudeMeters: CLLocationDistance = 400
     private let regionLongitudeMeters: CLLocationDistance = 400
     private var nearbies: [Nearby] = [
-        Nearby(latitude: 40, longitude: -8),
-        Nearby(latitude: 37, longitude: -10),
-        Nearby(latitude: 40, longitude: -9)
+        Nearby(latitude: 40, longitude: -8, imgURL: "https://cdn1.iconfinder.com/data/icons/business-users/512/circle-512.png"),
+        Nearby(latitude: 37, longitude: -10, imgURL: "https://cdn4.iconfinder.com/data/icons/user-15/164/3-512.png"),
+        Nearby(latitude: 40, longitude: -9, imgURL: "https://image.flaticon.com/icons/png/512/17/17115.png")
     ]
     private let reuseIdentifier = "pin"
     
@@ -29,32 +30,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     @IBOutlet weak var nearbyCollectionView: UICollectionView!
     @IBOutlet weak var mapView: MKMapView!
-    
-    fileprivate func addPlacemarks() {
-        let coords = CLLocationCoordinate2DMake(38.736946, -9.142685)
-//        let address = [CNPostalAddressStreetKey: "Avenida da Igreja", CNPostalAddressCityKey: "Lisbon", CNPostalAddressPostalCodeKey: "1600", CNPostalAddressISOCountryCodeKey: "PT"]
-//        let place = MKPlacemark(coordinate: coords, addressDictionary: address)
-//
-//        map.addAnnotation(place)
-        
-        let pointAnnotation = CustomPointAnnotation()
-        pointAnnotation.pinCustomImageName = "My Pin"
-        pointAnnotation.coordinate = coords
-        pointAnnotation.title = "I'm a pin..."
-        pointAnnotation.subtitle = "a custom pin"
-        
-        let pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: reuseIdentifier)
-        mapView.addAnnotation(pinAnnotationView.annotation!)
-        
-        for nearby in nearbies {
-            let pointAnnot = CustomPointAnnotation()
-            pointAnnot.pinCustomImageName = "My Pin"
-            pointAnnot.coordinate = nearby.coordinates
-            
-            let pointAnnotView = MKPinAnnotationView(annotation: pointAnnot, reuseIdentifier: reuseIdentifier)
-            mapView.addAnnotation(pointAnnotView.annotation!)
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +44,21 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         locationManager.startUpdatingLocation()
         
         addPlacemarks()
+    }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        <#code#>
+//    }
+    
+    fileprivate func addPlacemarks() {
+        for nearby in nearbies {
+            let pointAnnotation = CustomPointAnnotation()
+            pointAnnotation.imgURL = nearby.imgURL
+            pointAnnotation.coordinate = nearby.coordinates
+            
+            let pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: reuseIdentifier)
+            mapView.addAnnotation(pinAnnotationView.annotation!)
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -87,21 +77,22 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         nearbyCollectionView.reloadData()
     }
     
-//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
-//
-//        if annotationView == nil {
-//            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
-//            annotationView?.canShowCallout = true
-//        } else {
-//            annotationView?.annotation = annotation
-//        }
-//
-//        let customPointAnnotation = annotation as! CustomPointAnnotation
-//        annotationView?.image = UIImage(named: customPointAnnotation.pinCustomImageName)
-//
-//        return annotationView
-//    }
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+            annotationView?.canShowCallout = true
+        } else {
+            annotationView?.annotation = annotation
+        }
+
+        let customPointAnnotation = annotation as! CustomPointAnnotation
+        KingfisherManager.shared.retrieveImage(with: customPointAnnotation.imgURL, options: nil, progressBlock: nil, completionHandler: { (image, error, type, url) in
+            annotationView?.image = image
+        })
+        return annotationView
+    }
 }
 
 extension MapViewController : UICollectionViewDataSource, UICollectionViewDelegate {
@@ -109,17 +100,29 @@ extension MapViewController : UICollectionViewDataSource, UICollectionViewDelega
         return nearbies.count
     }
     
+    //TODO: Multithreading not treated right!
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let prototype = nearbies[indexPath.row]
         print("collectionView \(indexPath.row) - \(prototype.coordinates)")
-        if prototype == Nearby(latitude: 37, longitude: -10) {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifiers.multiple.rawValue, for: indexPath)
-            cell.backgroundColor = .black
+        if prototype.coordinates.latitude == 37 && prototype.coordinates.longitude == -10 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifiers.multiple.rawValue, for: indexPath) as! NearbyMultipleCell
+        
+            cell.topLeftImage.kf.indicatorType = .activity
+            cell.topLeftImage.kf.setImage(with: prototype.imgURL)
+            cell.topRightImage.kf.indicatorType = .activity
+            cell.topRightImage.kf.setImage(with: prototype.imgURL)
+            cell.bottomLeftImage.kf.indicatorType = .activity
+            cell.bottomLeftImage.kf.setImage(with: prototype.imgURL)
+            cell.bottomRightImage.kf.indicatorType = .activity
+            cell.bottomRightImage.kf.setImage(with: prototype.imgURL)
+            
             return cell
         } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifiers.single.rawValue, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifiers.single.rawValue, for: indexPath) as! NearbySingleCell
             
-            cell.backgroundColor = .yellow
+            cell.image.kf.indicatorType = .activity
+            cell.image.kf.setImage(with: prototype.imgURL)
+            
             return cell
         }
     }

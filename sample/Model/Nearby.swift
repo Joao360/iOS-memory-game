@@ -15,8 +15,10 @@ struct Nearby: Equatable {
     }
     
     let coordinates: CLLocationCoordinate2D
+    let imgURL: URL
     
-    init(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+    init(latitude: CLLocationDegrees, longitude: CLLocationDegrees, imgURL: String) {
         coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        self.imgURL = URL(string: imgURL)!
     }
 }
