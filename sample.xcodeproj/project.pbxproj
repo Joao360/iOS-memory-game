@@ -14,9 +14,12 @@
 		9D0816772162603400E46277 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D0816752162603400E46277 /* LaunchScreen.storyboard */; };
 		9D0816822162603400E46277 /* sampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0816812162603400E46277 /* sampleTests.swift */; };
 		9D08168D2162603400E46277 /* sampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D08168C2162603400E46277 /* sampleUITests.swift */; };
+		9D756044216B52F000DB858E /* CustomPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D756043216B52F000DB858E /* CustomPointAnnotation.swift */; };
+		9D756046216B88BE00DB858E /* Nearby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D756045216B88BE00DB858E /* Nearby.swift */; };
 		9DF6D78221639DA7008B9533 /* Concentration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF6D78121639DA7008B9533 /* Concentration.swift */; };
 		9DF6D78621639EF3008B9533 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF6D78521639EF3008B9533 /* Card.swift */; };
 		9DF6D7882163D678008B9533 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF6D7872163D678008B9533 /* MapViewController.swift */; };
+		9DFA63AB21667C1900F39BFD /* NearbyMultipleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA63AA21667C1900F39BFD /* NearbyMultipleCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,9 +53,12 @@
 		9D0816882162603400E46277 /* sampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D08168C2162603400E46277 /* sampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sampleUITests.swift; sourceTree = "<group>"; };
 		9D08168E2162603400E46277 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9D756043216B52F000DB858E /* CustomPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPointAnnotation.swift; sourceTree = "<group>"; };
+		9D756045216B88BE00DB858E /* Nearby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nearby.swift; sourceTree = "<group>"; };
 		9DF6D78121639DA7008B9533 /* Concentration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Concentration.swift; sourceTree = "<group>"; };
 		9DF6D78521639EF3008B9533 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		9DF6D7872163D678008B9533 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		9DFA63AA21667C1900F39BFD /* NearbyMultipleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyMultipleCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +114,9 @@
 				9D08166E2162603300E46277 /* ViewController.swift */,
 				9D0816702162603300E46277 /* Main.storyboard */,
 				9DF6D7872163D678008B9533 /* MapViewController.swift */,
+				9D756045216B88BE00DB858E /* Nearby.swift */,
+				9D756043216B52F000DB858E /* CustomPointAnnotation.swift */,
+				9DFA63AA21667C1900F39BFD /* NearbyMultipleCell.swift */,
 				9DF6D78121639DA7008B9533 /* Concentration.swift */,
 				9D0816732162603400E46277 /* Assets.xcassets */,
 				9D0816752162603400E46277 /* LaunchScreen.storyboard */,
@@ -265,10 +274,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D756046216B88BE00DB858E /* Nearby.swift in Sources */,
+				9D756044216B52F000DB858E /* CustomPointAnnotation.swift in Sources */,
 				9D08166F2162603300E46277 /* ViewController.swift in Sources */,
 				9D08166D2162603300E46277 /* AppDelegate.swift in Sources */,
 				9DF6D78221639DA7008B9533 /* Concentration.swift in Sources */,
 				9DF6D7882163D678008B9533 /* MapViewController.swift in Sources */,
+				9DFA63AB21667C1900F39BFD /* NearbyMultipleCell.swift in Sources */,
 				9DF6D78621639EF3008B9533 /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
