@@ -46,10 +46,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         addPlacemarks()
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        <#code#>
-//    }
-    
     fileprivate func addPlacemarks() {
         for nearby in nearbies {
             let pointAnnotation = CustomPointAnnotation()
@@ -67,7 +63,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, latitudinalMeters: regionLatitudeMeters, longitudinalMeters: regionLongitudeMeters)
         //var region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
-        //mapView.setRegion(region, animated: true)
+        mapView.setRegion(region, animated: true)
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -89,7 +85,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 
         let customPointAnnotation = annotation as! CustomPointAnnotation
         KingfisherManager.shared.retrieveImage(with: customPointAnnotation.imgURL, options: nil, progressBlock: nil, completionHandler: { (image, error, type, url) in
-            annotationView?.image = image
+            let size = CGSize(width: 50, height: 50)
+            UIGraphicsBeginImageContext(size)
+            image?.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+            
+            annotationView?.image = resizedImage
         })
         return annotationView
     }
