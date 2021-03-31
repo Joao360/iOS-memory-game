@@ -19,9 +19,10 @@
 		9D226218216BB5E200A10DA0 /* NearbySingleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D226217216BB5E200A10DA0 /* NearbySingleCell.swift */; };
 		9D756044216B52F000DB858E /* CustomPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D756043216B52F000DB858E /* CustomPointAnnotation.swift */; };
 		9D756046216B88BE00DB858E /* Nearby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D756045216B88BE00DB858E /* Nearby.swift */; };
+		9DF5679B216CBB1200A1A597 /* NearbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF5679A216CBB1200A1A597 /* NearbyView.swift */; };
 		9DF6D78221639DA7008B9533 /* Concentration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF6D78121639DA7008B9533 /* Concentration.swift */; };
 		9DF6D78621639EF3008B9533 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF6D78521639EF3008B9533 /* Card.swift */; };
-		9DF6D7882163D678008B9533 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF6D7872163D678008B9533 /* MapViewController.swift */; };
+		9DF6D7882163D678008B9533 /* NearbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF6D7872163D678008B9533 /* NearbyViewController.swift */; };
 		9DFA63AB21667C1900F39BFD /* NearbyMultipleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA63AA21667C1900F39BFD /* NearbyMultipleCell.swift */; };
 		FA69A2CE8FC832C67EA72400 /* Pods_sample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21287D1AFDE20DA4B584FC6E /* Pods_sample.framework */; };
 /* End PBXBuildFile section */
@@ -65,9 +66,10 @@
 		9D226217216BB5E200A10DA0 /* NearbySingleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbySingleCell.swift; sourceTree = "<group>"; };
 		9D756043216B52F000DB858E /* CustomPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPointAnnotation.swift; sourceTree = "<group>"; };
 		9D756045216B88BE00DB858E /* Nearby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nearby.swift; sourceTree = "<group>"; };
+		9DF5679A216CBB1200A1A597 /* NearbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyView.swift; sourceTree = "<group>"; };
 		9DF6D78121639DA7008B9533 /* Concentration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Concentration.swift; sourceTree = "<group>"; };
 		9DF6D78521639EF3008B9533 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		9DF6D7872163D678008B9533 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		9DF6D7872163D678008B9533 /* NearbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyViewController.swift; sourceTree = "<group>"; };
 		9DFA63AA21667C1900F39BFD /* NearbyMultipleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyMultipleCell.swift; sourceTree = "<group>"; };
 		9E928BFEAA00B2F48D50889A /* Pods-sampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sampleUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-sampleUITests/Pods-sampleUITests.release.xcconfig"; sourceTree = "<group>"; };
 		A8C68A01B97BFAAE1A3E73C4 /* Pods_sampleUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sampleUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,7 +134,7 @@
 				9D08166C2162603300E46277 /* AppDelegate.swift */,
 				9D08166E2162603300E46277 /* ViewController.swift */,
 				9D0816702162603300E46277 /* Main.storyboard */,
-				9DF6D7872163D678008B9533 /* MapViewController.swift */,
+				9DF6D7872163D678008B9533 /* NearbyViewController.swift */,
 				9D22621A216BB60E00A10DA0 /* View */,
 				9D756043216B52F000DB858E /* CustomPointAnnotation.swift */,
 				9DF6D78121639DA7008B9533 /* Concentration.swift */,
@@ -175,6 +177,7 @@
 			children = (
 				9D226217216BB5E200A10DA0 /* NearbySingleCell.swift */,
 				9DFA63AA21667C1900F39BFD /* NearbyMultipleCell.swift */,
+				9DF5679A216CBB1200A1A597 /* NearbyView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -429,7 +432,8 @@
 				9D08166D2162603300E46277 /* AppDelegate.swift in Sources */,
 				9D226218216BB5E200A10DA0 /* NearbySingleCell.swift in Sources */,
 				9DF6D78221639DA7008B9533 /* Concentration.swift in Sources */,
-				9DF6D7882163D678008B9533 /* MapViewController.swift in Sources */,
+				9DF6D7882163D678008B9533 /* NearbyViewController.swift in Sources */,
+				9DF5679B216CBB1200A1A597 /* NearbyView.swift in Sources */,
 				9DFA63AB21667C1900F39BFD /* NearbyMultipleCell.swift in Sources */,
 				9DF6D78621639EF3008B9533 /* Card.swift in Sources */,
 			);

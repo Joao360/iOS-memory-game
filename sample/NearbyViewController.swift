@@ -11,7 +11,12 @@ import Contacts
 import MapKit
 import Kingfisher
 
-class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+enum CellIdentifiers: String {
+    case single = "nearbySingleCell"
+    case multiple = "nearbyMultipleCell"
+}
+
+class NearbyViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     private let locationManager = CLLocationManager()
     private let regionLatitudeMeters: CLLocationDistance = 400
@@ -22,21 +27,29 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         Nearby(latitude: 40, longitude: -9, imgURL: "https://image.flaticon.com/icons/png/512/17/17115.png")
     ]
     private let reuseIdentifier = "pin"
+    private let nearbyView = NearbyView()
     
-    enum CellIdentifiers: String {
-        case single = "nearbySingleCell"
-        case multiple = "nearbyMultipleCell"
+    override func loadView() {
+        super.loadView()
+        nearbyView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(nearbyView)
+        nearbyView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        nearbyView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        nearbyView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        nearbyView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        nearbyView.loadView()
+        
+        view.backgroundColor = .yellow
     }
-    
-    @IBOutlet weak var nearbyCollectionView: UICollectionView!
-    @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nearbyCollectionView.dataSource = self
-        nearbyCollectionView.delegate = self
+        nearbyView.nearbyCollectionView.dataSource = self
+        nearbyView.nearbyCollectionView.delegate = self
         
-        mapView.delegate = self
+        nearbyView.mapView.delegate = self
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -53,7 +66,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             pointAnnotation.coordinate = nearby.coordinates
             
             let pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: reuseIdentifier)
-            mapView.addAnnotation(pinAnnotationView.annotation!)
+            nearbyView.mapView.addAnnotation(pinAnnotationView.annotation!)
         }
     }
     
@@ -63,14 +76,14 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, latitudinalMeters: regionLatitudeMeters, longitudinalMeters: regionLongitudeMeters)
         //var region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
-        mapView.setRegion(region, animated: true)
+        //nearbyView.mapView.setRegion(region, animated: true)
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         let mapCenter = mapView.centerCoordinate
         print("mapCenter - \(mapCenter)")
         nearbies.sort(by: { $0.coordinates.distance(to: mapCenter) < $1.coordinates.distance(to: mapCenter) })
-        nearbyCollectionView.reloadData()
+        nearbyView.nearbyCollectionView.reloadData()
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -96,7 +109,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
 }
 
-extension MapViewController : UICollectionViewDataSource, UICollectionViewDelegate {
+extension NearbyViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return nearbies.count
     }
@@ -132,7 +145,7 @@ extension MapViewController : UICollectionViewDataSource, UICollectionViewDelega
         let nearby = nearbies[indexPath.row]
         let center = CLLocationCoordinate2D(latitude: nearby.coordinates.latitude, longitude: nearby.coordinates.longitude)
         let region = MKCoordinateRegion(center: center, latitudinalMeters: regionLatitudeMeters, longitudinalMeters: regionLongitudeMeters)
-        mapView.setRegion(region, animated: true)
+        nearbyView.mapView.setRegion(region, animated: true)
     }
 }
 
